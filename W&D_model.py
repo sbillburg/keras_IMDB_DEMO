@@ -1,14 +1,8 @@
 import numpy as np
-import pandas as pd
 
-
+from keras.layers import Dense, Input, concatenate
+from keras.optimizers import SGD
 from keras.models import Model
-from keras.layers import Dense, concatenate, Input
-from keras.optimizers import Adam, SGD
-from keras.layers import Flatten, concatenate, Lambda, Dropout
-from keras.layers.normalization import BatchNormalization
-from keras.models import Model
-from keras.regularizers import l2, l1_l2
 
 from tensorflow.python.keras.datasets import imdb
 
@@ -53,9 +47,3 @@ model = Model(inputs=[wide_input, deep_input], outputs=wd)
 sgd = SGD(lr=0.001, decay=1e-6, momentum=0.9, nesterov=True, clipnorm=5)
 model.compile(optimizer=sgd, loss="binary_crossentropy", metrics=['accuracy'])
 model.fit([partial_x_train, partial_x_train], partial_y_train, epochs=20, batch_size=200)
-
-
-deep = Dense(1, activation='sigmoid')(deep)
-deep_model = Model(inputs=deep_input, outputs=deep)
-deep_model.compile(optimizer=sgd, loss="binary_crossentropy", metrics=['accuracy'])
-# deep_model.fit(partial_x_train, partial_y_train, epochs=20, batch_size=200)
