@@ -11,10 +11,10 @@ word_num = 6666
 (train_data, train_labels), (test_data, test_labels) = imdb.load_data(num_words=word_num)
 
 
-def vectorize_sequences(sequences, dimension=word_num):
-    results = np.zeros((len(sequences), dimension))  # 数据集长度，每个评论维度10000
+def vectorize_sequences(sequences, dimension=word_num):  # one-hot
+    results = np.zeros((len(sequences), dimension))
     for i, sequence in enumerate(sequences):
-        results[i, sequence] = 1  # one-hot
+        results[i, sequence] = 1 
     return results
 
 
